@@ -2,7 +2,11 @@
 
 This repository contains the code for the Final Assignment of the graduate class INF2922 (PUC-Rio).
 
-Steps are described below
+
+
+## Dataset
+
+The dataset used here was retrieved from a Kaggle Challenge: https://www.kaggle.com/datasets/andrewmvd/fetal-health-classification
 
 
 # Steps to Put a Model to Production
