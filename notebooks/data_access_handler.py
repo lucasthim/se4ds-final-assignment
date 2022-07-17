@@ -3,7 +3,7 @@ import pandas as pd
 
 class DataAccessHandler():
 
-    """ Class that enables access to the dataset."""
+    """ Class that provides access to the dataset."""
     
     def __init__(self,main_path:str) -> None:
         """
