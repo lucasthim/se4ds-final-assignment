@@ -4,10 +4,9 @@ from sklearn.feature_selection import RFECV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
 from sklearn.base import BaseEstimator
-
 from sklearn.metrics import f1_score
 
-
+import yaml
 
 class FeatureSelector():
     """Class that contains the method select specific features that can increase models performance."""
@@ -15,9 +14,24 @@ class FeatureSelector():
     def __init__(self,random_state=42) -> None:
         self.random_state = random_state
 
-    def select_best_features(self,X:pd.DataFrame,y:pd.DataFrame):
+    def select_best_features(self, X:pd.DataFrame, y:pd.DataFrame) -> None:
+        """
+        Execute the feature selection step. 
+        The method that is being used is the Recursive Feature Elimination with Cross Validation.
+        The model that is being used here is the RandomForestClassifier.
+                
+        Parameters:
+        -----------
+        - X: input features to train the model.
+        - y: target variable to train the model.
 
-        def f1_score_micro(estimator:BaseEstimator,X:pd.DataFrame,y:pd.DataFrame):
+        Returns:
+        -----------
+        None
+
+        """
+
+        def f1_score_micro(estimator:BaseEstimator, X:pd.DataFrame, y:pd.DataFrame):
             y_pred = estimator.predict(X)
             return f1_score(y_true=y,y_pred=y_pred, average='micro')
 
@@ -32,8 +46,27 @@ class FeatureSelector():
         self._selected_features = selector.get_feature_names_out()
         print("Atributos Selecionados:",selector.get_feature_names_out())
     
-    @property
-    def get_selected_features(self):
-        return self._selected_features
+    def save_best_features(self,path:str) -> None:
+        """Save the selected features into a separate YAML file."""
+
+        path = self._add_bar_to_path(path)
+        dict_file = [{'best_features' : self._selected_features}]
+        with open(f'{path}best_features.yaml', 'w') as file:
+            documents = yaml.dump(dict_file, file)
+
+            
+    def load_best_features(self,path:str)-> list:
+        """Load the selected features into memory from a YAML file."""
+        path = self._add_bar_to_path(path)
+        with open(f'{path}best_features.yaml') as file:
+            # The FullLoader parameter handles the conversion from YAML scalar values to Python the dictionary format
+            list = yaml.load(file, Loader=yaml.FullLoader)
+        self._selected_features = list
         
-# TODO: feature selection ou feature extraction.
+    def _add_bar_to_path(self,path):
+        return path if (path[-1] == "/") else path + "/"
+
+    @property
+    def get_selected_features(self) -> list:
+        return self._selected_features
+    
