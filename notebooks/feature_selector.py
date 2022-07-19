@@ -43,28 +43,28 @@ class FeatureSelector():
                                     verbose=0,
                                     n_jobs=-1)
         selector.fit(X,y)
-        self._selected_features = selector.get_feature_names_out()
-        print("Atributos Selecionados:",selector.get_feature_names_out())
+        self._selected_features = selector.get_feature_names_out().tolist()
+        print("Atributos Selecionados:",self._selected_features)
     
     def save_best_features(self,path:str) -> None:
         """Save the selected features into a separate YAML file."""
 
-        path = self._add_bar_to_path(path)
-        dict_file = [{'best_features' : self._selected_features}]
-        with open(f'{path}best_features.yaml', 'w') as file:
+        path = self._format_path(path)
+        dict_file = {'best_features' : self._selected_features}
+        with open(f'{path}/best_features.yaml', 'w') as file:
             documents = yaml.dump(dict_file, file)
 
             
     def load_best_features(self,path:str)-> list:
         """Load the selected features into memory from a YAML file."""
-        path = self._add_bar_to_path(path)
-        with open(f'{path}best_features.yaml') as file:
+        path = self._format_path(path)
+        with open(f'{path}/best_features.yaml') as file:
             # The FullLoader parameter handles the conversion from YAML scalar values to Python the dictionary format
-            list = yaml.load(file, Loader=yaml.FullLoader)
-        self._selected_features = list
+            features_file = yaml.load(file, Loader=yaml.FullLoader)
+        self._selected_features = features_file["best_features"]
         
-    def _add_bar_to_path(self,path):
-        return path if (path[-1] == "/") else path + "/"
+    def _format_path(self,path):
+        return path[:-1] if (path[-1] == "/") else path
 
     @property
     def get_selected_features(self) -> list:
