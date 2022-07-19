@@ -3,8 +3,7 @@ import pandas as pd
 from sklearn.feature_selection import RFECV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
-from sklearn.base import BaseEstimator
-from sklearn.metrics import f1_score
+from utils import f1_score_micro
 
 import yaml
 
@@ -30,10 +29,6 @@ class FeatureSelector():
         None
 
         """
-
-        def f1_score_micro(estimator:BaseEstimator, X:pd.DataFrame, y:pd.DataFrame):
-            y_pred = estimator.predict(X)
-            return f1_score(y_true=y,y_pred=y_pred, average='micro')
 
         selector = RFECV(estimator=RandomForestClassifier(min_samples_split=3, min_samples_leaf=3,random_state=self.random_state),
                                     step=1,
