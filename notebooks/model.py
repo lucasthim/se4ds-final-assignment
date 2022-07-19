@@ -52,7 +52,8 @@ class ModelOptimizer:
         pass
 
     def _optimize_random_forest(self) -> None:
-        pass
+        best_rf = None
+        self.best_rf = best_rf.best_estimator_
 
     def _optimize_light_gbm(self) -> None:
         pass
