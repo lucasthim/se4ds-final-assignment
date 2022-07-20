@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.feature_selection import RFECV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
-from utils import f1_score_micro
+from src.utils import f1_score_micro
 
 import yaml
 
