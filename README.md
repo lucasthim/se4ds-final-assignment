@@ -7,8 +7,21 @@ This repository contains the code for the Final Assignment of the graduate class
 The work done is found in the notebooks, numbered by their sequence of execution. The explanation in the notebooks are in Portuguese-BR.
 
 The first notebook makes a problem context and definition and establishes a main user story that is developed accross all notebooks.
-The last notebook (05) is actually a simulation of a training and inference pipeline, taking advantage of OOP concepts.
+Notebooks from 02 to 04 are experimental steps typically built by a Data Scientist.
+The last notebook (05) is actually a simulation of a training and inference pipeline, taking advantage of OOP concepts. These final steps are generally built by Machine Learning Engineers with the colaboration of Data Scientists.
 
+# Technical Requirements
+
+In order to re-run the notebooks, the following packages are necessary:
+- Python >= 3.9.12
+- Pandas >= 1.4.2
+- Numpy >= 1.21.6
+- Scikit-Learn >= 1.1.1
+- LightGBM >= 3.3.2
+- Optuna >= 2.1
+- Matplotlib >= 3.5.1
+- Seaborn >= 0.11.2
+- Yaml >= 0.2.5
 
 # Context
 
